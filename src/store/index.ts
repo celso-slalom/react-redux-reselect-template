@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import { ActionType, getType } from 'typesafe-actions';
+import { StateType } from 'typesafe-actions';
 import * as todos from './actions';
 import { Todo, TodosFilter } from "./models";
 
@@ -10,7 +11,7 @@ export type TodosState = Readonly<{
     todosFilter: TodosFilter;
 }>;
 
-export default combineReducers<TodosState, TodosAction>({
+const rootReducer = combineReducers<TodosState, TodosAction>({
     todos: (state = [], action) => {
         switch (action.type) {
             case getType(todos.add): {
@@ -37,4 +38,8 @@ export default combineReducers<TodosState, TodosAction>({
                 return state;
         }
     }
-})
+});
+
+export type RootState = StateType<typeof rootReducer>;
+
+export default rootReducer;

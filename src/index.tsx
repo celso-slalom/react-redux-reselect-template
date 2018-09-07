@@ -14,10 +14,13 @@ import TodosPage from './TodosPage';
 
 const history = createBrowserHistory();
 
+const composeEnhancers =
+  (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+
 const store = createStore(
   connectRouter(history)(rootReducer),
   {},
-  compose(
+  composeEnhancers(
     applyMiddleware(
       routerMiddleware(history)
     )
